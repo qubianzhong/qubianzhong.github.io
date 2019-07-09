@@ -5,9 +5,9 @@
   <subtitle>为者常成，行者常至</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://book.qubianzhong.cn/"/>
   <updated>2019-07-09T15:54:46.333Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://book.qubianzhong.cn/</id>
   
   <author>
     <name>不变不中</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2019/07/09/hello-world/"/>
-    <id>http://yoursite.com/2019/07/09/hello-world/</id>
+    <link href="http://book.qubianzhong.cn/2019/07/09/hello-world/"/>
+    <id>http://book.qubianzhong.cn/2019/07/09/hello-world/</id>
     <published>2019-07-09T15:54:46.333Z</published>
     <updated>2019-07-09T15:54:46.333Z</updated>
     

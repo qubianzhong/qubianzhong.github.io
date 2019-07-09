@@ -31,17 +31,6 @@
     
     
     <entry>
-      <title>我的朋友们</title>
-      <link href="/friends/index.html"/>
-      <url>/friends/index.html</url>
-      
-        <content type="html"><![CDATA[<p>这里可以写友链页面下方的文字备注，例如自己的友链规范、示例等。</p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>关于</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -64,11 +53,11 @@
     
     
     <entry>
-      <title></title>
-      <link href="/mylist/index.html"/>
-      <url>/mylist/index.html</url>
+      <title>我的朋友们</title>
+      <link href="/friends/index.html"/>
+      <url>/friends/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>这里可以写友链页面下方的文字备注，例如自己的友链规范、示例等。</p>]]></content>
       
     </entry>
     
@@ -78,6 +67,17 @@
       <title>所有标签</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/mylist/index.html"/>
+      <url>/mylist/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
