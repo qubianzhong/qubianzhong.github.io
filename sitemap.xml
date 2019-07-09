@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://book.qubianzhong.cn/about/index.html</loc>
+    
+    <lastmod>2019-07-09T18:02:53.849Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://book.qubianzhong.cn/archives/13bb8d58.html</loc>
     
     <lastmod>2019-07-09T17:30:53.789Z</lastmod>
@@ -47,13 +54,6 @@
     <loc>http://book.qubianzhong.cn/mylist/index.html</loc>
     
     <lastmod>2019-07-09T15:54:45.909Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://book.qubianzhong.cn/about/index.html</loc>
-    
-    <lastmod>2019-07-09T15:54:45.221Z</lastmod>
     
   </url>
   
