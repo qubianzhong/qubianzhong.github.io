@@ -31,11 +31,11 @@
     
     
     <entry>
-      <title>所有分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>我的朋友们</title>
+      <link href="/friends/index.html"/>
+      <url>/friends/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>这里可以写友链页面下方的文字备注，例如自己的友链规范、示例等。</p>]]></content>
       
     </entry>
     
@@ -53,11 +53,11 @@
     
     
     <entry>
-      <title>我的朋友们</title>
-      <link href="/friends/index.html"/>
-      <url>/friends/index.html</url>
+      <title>所有分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
-        <content type="html"><![CDATA[<p>这里可以写友链页面下方的文字备注，例如自己的友链规范、示例等。</p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
