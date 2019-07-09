@@ -2,23 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://book.qubianzhong.cn/archives/13bb8d58.html</loc>
+    
+    <lastmod>2019-07-09T17:30:53.789Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://book.qubianzhong.cn/archives/d87f7e0c.html</loc>
+    
+    <lastmod>2019-07-09T17:30:53.788Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://book.qubianzhong.cn/archives/4a17b156.html</loc>
+    
+    <lastmod>2019-07-09T17:30:53.787Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://book.qubianzhong.cn/friends/index.html</loc>
     
     <lastmod>2019-07-09T17:23:02.537Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://book.qubianzhong.cn/2019/07/10/test2/</loc>
-    
-    <lastmod>2019-07-09T17:06:10.789Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://book.qubianzhong.cn/2019/07/10/test/</loc>
-    
-    <lastmod>2019-07-09T16:51:41.290Z</lastmod>
     
   </url>
   
@@ -33,13 +40,6 @@
     <loc>http://book.qubianzhong.cn/categories/index.html</loc>
     
     <lastmod>2019-07-09T16:47:41.993Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://book.qubianzhong.cn/2019/07/09/hello-world/</loc>
-    
-    <lastmod>2019-07-09T15:54:46.333Z</lastmod>
     
   </url>
   
