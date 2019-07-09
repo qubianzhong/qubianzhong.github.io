@@ -20,9 +20,20 @@
     
     
     <entry>
-      <title>所有标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>404 Not Found</title>
+      <link href="/404.html"/>
+      <url>/404.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="404-Not-Found"><a href="#404-Not-Found" class="headerlink" title="404 Not Found"></a><center><strong>404 Not Found</strong></center></h1><br><center>**很抱歉，您访问的页面不存在**</center><center>可能是输入地址有误或该地址已被删除</center><br><br>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -42,9 +53,20 @@
     
     
     <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>我的朋友们</title>
+      <link href="/friends/index.html"/>
+      <url>/friends/index.html</url>
+      
+        <content type="html"><![CDATA[<p>这里可以写友链页面下方的文字备注，例如自己的友链规范、示例等。</p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>所有标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -58,28 +80,6 @@
       <url>/mylist/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>我的朋友们</title>
-      <link href="/friends/index.html"/>
-      <url>/friends/index.html</url>
-      
-        <content type="html"><![CDATA[<p>这里可以写友链页面下方的文字备注，例如自己的友链规范、示例等。</p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>404 Not Found</title>
-      <link href="/404.html"/>
-      <url>/404.html</url>
-      
-        <content type="html"><![CDATA[<h1 id="404-Not-Found"><a href="#404-Not-Found" class="headerlink" title="404 Not Found"></a><center><strong>404 Not Found</strong></center></h1><br><center>**很抱歉，您访问的页面不存在**</center><center>可能是输入地址有误或该地址已被删除</center><br><br>]]></content>
       
     </entry>
     
