@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://book.qubianzhong.cn/"/>
-  <updated>2019-07-10T02:03:03.737Z</updated>
+  <updated>2019-07-10T02:40:11.448Z</updated>
   <id>http://book.qubianzhong.cn/</id>
   
   <author>
@@ -21,12 +21,20 @@
     <link href="http://book.qubianzhong.cn/archives/c246a785.html"/>
     <id>http://book.qubianzhong.cn/archives/c246a785.html</id>
     <published>2019-07-10T02:03:03.000Z</published>
-    <updated>2019-07-10T02:03:03.737Z</updated>
+    <updated>2019-07-10T02:40:11.448Z</updated>
+    
+    <content type="html"><![CDATA[<p>当你刚刚为公司的一个Web应用实现了一个很棒的注册模块。它看起来简洁、高效。在你沾沾自喜的时候，你的leader对你说，现在咱们需要在注册成功后对用户发送一条短信。过了一段时间后，你的leader又对你说，现在咱们需要在注册成功后对用户发送一条邮件，点击邮件中的激活链接后才算是真正的注册成功。又过了一段时间，你的leader又对你说，现在咱们需要在注册成功后对用户发送一条成功赠送金币的迎新消息。又过了一段时间后……</p><a id="more"></a><p>世界唯一不变的就是不断变化。对于刚才的应用场景，如果所有的新增业务逻辑都写在注册模块中，不但会有大量的耦合，也会增加后期维护的成本。</p><p>江湖传闻应对这种场景对于MQ来说小菜一碟，那我们来看下MQ是干嘛的。</p><p>MQ英文全称Message Queue,中文翻译为消息总线或消息队列，它是一种跨进程的通信机制，用于上下游传递消息。</p><p><img src="http://upyun.qubianzhong.cn/picture/WXWork_uGflGyW7vq.png" alt></p><p>在互联网架构中，MQ是一种非常常见的上下游$\color{red}逻辑解耦+物理解耦$的消息通信服务。使用了MQ之后，消息发送上游只需要依赖MQ，逻辑上和物理上都不用依赖其他服务。</p>]]></content>
     
     <summary type="html">
     
+      &lt;p&gt;当你刚刚为公司的一个Web应用实现了一个很棒的注册模块。它看起来简洁、高效。在你沾沾自喜的时候，你的leader对你说，现在咱们需要在注册成功后对用户发送一条短信。过了一段时间后，你的leader又对你说，现在咱们需要在注册成功后对用户发送一条邮件，点击邮件中的激活链接后才算是真正的注册成功。又过了一段时间，你的leader又对你说，现在咱们需要在注册成功后对用户发送一条成功赠送金币的迎新消息。又过了一段时间后……&lt;/p&gt;
+    
     </summary>
     
+      <category term="RabbitMQ" scheme="http://book.qubianzhong.cn/categories/RabbitMQ/"/>
+    
+    
+      <category term="MQ" scheme="http://book.qubianzhong.cn/tags/MQ/"/>
     
   </entry>
   
