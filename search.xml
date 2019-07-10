@@ -8,7 +8,7 @@
       <link href="/archives/c246a785.html"/>
       <url>/archives/c246a785.html</url>
       
-        <content type="html"><![CDATA[<p>当你刚刚为公司的一个Web应用实现了一个很棒的注册模块。它看起来简洁、高效。在你沾沾自喜的时候，你的leader对你说，现在咱们需要在注册成功后对用户发送一条短信。过了一段时间后，你的leader又对你说，现在咱们需要在注册成功后对用户发送一条邮件，点击邮件中的激活链接后才算是真正的注册成功。又过了一段时间，你的leader又对你说，现在咱们需要在注册成功后对用户发送一条成功赠送金币的迎新消息。又过了一段时间后……</p><a id="more"></a><p>世界唯一不变的就是不断变化。对于刚才的应用场景，如果所有的新增业务逻辑都写在注册模块中，不但会有大量的耦合，也会增加后期维护的成本。</p><p>江湖传闻应对这种场景对于MQ来说小菜一碟，那我们来看下MQ是干嘛的。</p><p>MQ英文全称Message Queue,中文翻译为消息总线或消息队列，它是一种跨进程的通信机制，用于上下游传递消息。</p><p><img src="http://upyun.qubianzhong.cn/picture/WXWork_uGflGyW7vq.png" alt></p><p>在互联网架构中，MQ是一种非常常见的上下游$\color{red}逻辑解耦+物理解耦$的消息通信服务。使用了MQ之后，消息发送上游只需要依赖MQ，逻辑上和物理上都不用依赖其他服务。</p>]]></content>
+        <content type="html"><![CDATA[<h3 id="MQ是干嘛的"><a href="#MQ是干嘛的" class="headerlink" title="MQ是干嘛的"></a>MQ是干嘛的</h3><p>当你刚刚为公司的一个Web应用实现了一个很棒的注册模块。它看起来简洁、高效。在你沾沾自喜的时候，你的leader对你说，现在咱们需要在注册成功后对用户发送一条短信。过了一段时间后，你的leader又对你说，现在咱们需要在注册成功后对用户发送一条邮件，点击邮件中的激活链接后才算是真正的注册成功。又过了一段时间，你的leader又对你说，现在咱们需要在注册成功后对用户发送一条成功赠送金币的迎新消息。又过了一段时间后……</p><a id="more"></a><p>世界唯一不变的就是不断变化。对于刚才的应用场景，如果所有的新增业务逻辑都写在注册模块中，不但会有大量的耦合，也会增加后期维护的成本。</p><p>江湖传闻应对这种场景对于MQ来说小菜一碟，那我们来看下MQ是怎么做到的。</p><hr><p>MQ英文全称Message Queue,中文翻译为消息总线或消息队列，它是一种跨进程的通信机制，用于上下游传递消息。</p><p><img src="http://upyun.qubianzhong.cn/picture/WXWork_uGflGyW7vq.png" alt></p><p>在互联网架构中，MQ是一种非常常见的上下游<font color="red">逻辑解耦+物理解耦</font>的消息通信服务。使用了MQ之后，消息发送上游只需要依赖MQ，逻辑上和物理上都不用依赖其他服务。</p><p>对于刚开始我们提到的问题，如果使用MQ的话，我们只需要在注册完成后向MQ中发送一条消息；对于后面的迭代模块只需要订阅该消息即可。无论后期新增多少模块都不会对原始的注册模块造成影响。</p><p>其实，我们可以把MQ想象成一个邮局，当你把你想要投递的邮件放进邮箱时，MQ最终会把邮件投递给你的收件人，当然了，你的收件人可以是一个人或者是一群人，这个MQ都是支持的。</p><p><strong>既然MQ这么厉害，为什么不所有的通讯都使用MQ呢？</strong></p><p>因为没有一种技术普适于所有差异化的业务场景。就好比，相对论把牛顿的经典力学扩展到更普适的宇宙范围，上升到亚光速和光速层面，打破了经典力学的局限性，但是，它也肯定有局限性，不然也不会显得与量子力学格格不入！<font color="gray">那么，MQ的局限性都有哪些呢？</font></p><h3 id="MQ的局限性"><a href="#MQ的局限性" class="headerlink" title="MQ的局限性"></a>MQ的局限性</h3><ul><li>多了个组件，<font color="red">会使系统更复杂</font></li><li>消息传递路径更长，<font color="red">延时会增加</font></li><li>消息可靠性和重复性护卫矛盾，<font color="red">消息不丢不重难以同时保证</font></li><li>比较致命的是，<font color="red">上游无法知道下游的执行结果</font></li></ul><p>举个简单的例子，<font color="red">用户的登录</font>，登录页面调用用户中心的登录服务，而登录服务的执行结果将<font color="green">直接影响</font>登录的结果。此处的<strong>登录页面</strong>和<strong>登录服务</strong>就必须使用调用关系，而不能使用MQ通信。假如使用了MQ，想想都很酸爽。。</p><p><font color="gray">正因为MQ局限性的存在，那么，我们什么情况下不使用MQ呢？</font></p><p><img src="http://upyun.qubianzhong.cn/picture/WXWork_EtqjeREJBn.png" alt></p><p>因为其局限性，所以，<font color="red">当调用方实时依赖执行结果的业务场景，请使用调用，而不是MQ</font>。</p><p><font color="gray">我们在了解了什么情况下不宜使用MQ的情况下，我们更应该熟悉MQ常用的几种典型场景。</font></p><h3 id="MQ典型应用场景"><a href="#MQ典型应用场景" class="headerlink" title="MQ典型应用场景"></a>MQ典型应用场景</h3><h4 id="数据驱动的任务依赖"><a href="#数据驱动的任务依赖" class="headerlink" title="数据驱动的任务依赖"></a>数据驱动的任务依赖</h4><p>所谓的数据驱动的任务依赖，顾名思义，就是指某一个任务的输入数据依赖于另一个任务的输出数据。</p><p>比如，很多公司会在凌晨进行一些数据统计业务，而有时候多个统计业务就会有数据依赖的情况。</p><p><img src="http://upyun.qubianzhong.cn/picture/WXWork_jG4GnhV4XL.png" alt></p><p>对于这类需求，常见的实现方式是使用，cron表达式进行人工排执行时间表。</p><ul><li>task1, 0:00执行，经验执行时间50分钟</li><li>task2，1:00执行（为task1预留10分钟buffer），经验执行时间也是50分钟</li><li>task3，2:00执行（为task2预留10分钟buffer）</li></ul><p>但是，这种方法有着显著的弊端：</p><ul><li><p>如果有一个任务<font color="red">执行时间超过了预留buffer的时间</font>，将会得到错误的结果，因为后置任务不清楚前置任务是否执行成功，此时<font color="red">要手动重跑任务</font>，还有可能要调整排班表</p></li><li><p>总任务的<font color="red">执行时间很长</font>，总是要预留很多buffer，如果前置任务提前完成，<font color="red">后置任务不会提前开始</font></p></li><li><p>如果<font color="red">一个任务被多个任务依赖</font>，这个任务将会称为关键路径，排班表很难体现依赖关系，<font color="red">容易出错</font></p></li><li><p>如果有<font color="red">一个任务的执行时间要调整</font>，将会有<font color="red">多个任务的执行时间要调整</font></p></li></ul><p>而且，这种方式也是具有很高的耦合性。因此，我们给出的优化方案就是使用MQ。</p><p><img src="http://upyun.qubianzhong.cn/picture/WXWork_aRuFopOhdV.png" alt></p><ul><li>task1准时开始，结束后发一个“task1 done”的消息</li><li>task2订阅“task1 done”的消息，收到消息后第一时间启动执行，结束后发一个“task2 done”的消息</li><li>task3同理</li></ul><p><strong>ps:</strong><font color="gray">此处发送的消息可以理解为，确认任务完成的一个标识消息，而不是任务执行完成后的输出数据</font></p><p>综上所述，在数据驱动的任务依赖的场景下，采用MQ具备了以下优点：</p><ul><li><p>不需要预留buffer，上游任务执行完，下游任务总会在第一时间被执行</p></li><li><p>依赖多个任务，被多个任务依赖都很好处理，只需要订阅相关消息即可</p></li><li><p>有任务执行时间变化，下游任务都不需要调整执行时间</p></li></ul><h4 id="上游不关心执行结果"><a href="#上游不关心执行结果" class="headerlink" title="上游不关心执行结果"></a>上游不关心执行结果</h4><h4 id="上游关心执行结果，但执行时间很长"><a href="#上游关心执行结果，但执行时间很长" class="headerlink" title="上游关心执行结果，但执行时间很长"></a>上游关心执行结果，但执行时间很长</h4>]]></content>
       
       
       <categories>
@@ -43,22 +43,22 @@
     
     
     <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>我的朋友们</title>
+      <link href="/friends/index.html"/>
+      <url>/friends/index.html</url>
       
-        <content type="html"><![CDATA[<h2 id="人生有何意义"><a href="#人生有何意义" class="headerlink" title="人生有何意义"></a><strong>人生有何意义</strong></h2><h3 id="一、答某君书"><a href="#一、答某君书" class="headerlink" title="一、答某君书"></a><strong>一、答某君书</strong></h3><p>……我细读来书，终觉得你不免作茧自缚。你自己去寻出一个本不成问题的问题，“人生有何意义？”其实这个问题是容易解答的。人生的意义全是各人自己寻出来、造出来的：高尚，卑劣，清贵，污浊，有用，无用……全靠自己的作为。生命本身不过是一件生物学的事实，有什么意义可说？生一个人与一只猫、一只狗，有什么分别？人生的意义不在于何以有生，而在于自己怎样生活。你若情愿把这六尺之躯葬送在白昼做梦之上，那就是你这一生的意义。你若发愤振作起来，决心去寻求生命的意义，去创造自己的生命的意义，那么，你活一日便有一日的意义，做一事便添一事的意义，生命无穷，生命的意义也无穷了。<strong><code>总之，生命本没有意义，你要能给它什么意义，它就有什么意义。与其终日冥想人生有何意义，不如试用此生做点有意义的事……</code></strong></p><p>民国十七年一月廿七日本文原载1928年8月5日<br>《生活周刊》第2卷第38期</p><hr><h3 id="二、为人写扇子的话"><a href="#二、为人写扇子的话" class="headerlink" title="二、为人写扇子的话"></a><strong>二、为人写扇子的话</strong></h3><p><strong>知世如梦无所求，无所求心普空寂。</strong></p><p><strong>还似梦中随梦境，成就河沙梦功德。</strong></p><p>王荆公小诗一首，真是有得于佛法的话。认得人生如梦，故无所求。但无所求不是无为。人生固然不过一梦，但一生只有这一场做梦的机会，岂可不努力做一个轰轰烈烈像个样子的梦？岂可糊糊涂涂懵懵懂懂混过这几十年吗？</p><p>民国十八年五月十三日</p>]]></content>
+        <content type="html"><![CDATA[<p>这里可以写友链页面下方的文字备注，例如自己的友链规范、示例等。</p>]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>我的朋友们</title>
-      <link href="/friends/index.html"/>
-      <url>/friends/index.html</url>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[<p>这里可以写友链页面下方的文字备注，例如自己的友链规范、示例等。</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="人生有何意义"><a href="#人生有何意义" class="headerlink" title="人生有何意义"></a><strong>人生有何意义</strong></h2><h3 id="一、答某君书"><a href="#一、答某君书" class="headerlink" title="一、答某君书"></a><strong>一、答某君书</strong></h3><p>……我细读来书，终觉得你不免作茧自缚。你自己去寻出一个本不成问题的问题，“人生有何意义？”其实这个问题是容易解答的。人生的意义全是各人自己寻出来、造出来的：高尚，卑劣，清贵，污浊，有用，无用……全靠自己的作为。生命本身不过是一件生物学的事实，有什么意义可说？生一个人与一只猫、一只狗，有什么分别？人生的意义不在于何以有生，而在于自己怎样生活。你若情愿把这六尺之躯葬送在白昼做梦之上，那就是你这一生的意义。你若发愤振作起来，决心去寻求生命的意义，去创造自己的生命的意义，那么，你活一日便有一日的意义，做一事便添一事的意义，生命无穷，生命的意义也无穷了。<strong><code>总之，生命本没有意义，你要能给它什么意义，它就有什么意义。与其终日冥想人生有何意义，不如试用此生做点有意义的事……</code></strong></p><p>民国十七年一月廿七日本文原载1928年8月5日<br>《生活周刊》第2卷第38期</p><hr><h3 id="二、为人写扇子的话"><a href="#二、为人写扇子的话" class="headerlink" title="二、为人写扇子的话"></a><strong>二、为人写扇子的话</strong></h3><p><strong>知世如梦无所求，无所求心普空寂。</strong></p><p><strong>还似梦中随梦境，成就河沙梦功德。</strong></p><p>王荆公小诗一首，真是有得于佛法的话。认得人生如梦，故无所求。但无所求不是无为。人生固然不过一梦，但一生只有这一场做梦的机会，岂可不努力做一个轰轰烈烈像个样子的梦？岂可糊糊涂涂懵懵懂懂混过这几十年吗？</p><p>民国十八年五月十三日</p>]]></content>
       
     </entry>
     
