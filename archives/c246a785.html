@@ -430,9 +430,12 @@
 <p>而且，这种方式也是具有很高的耦合性。因此，我们给出的优化方案就是使用MQ。</p>
 <p><img src="http://upyun.qubianzhong.cn/picture/WXWork_aRuFopOhdV.png" alt></p>
 <ul>
-<li>task1准时开始，结束后发一个“task1 done”的消息</li>
-<li>task2订阅“task1 done”的消息，收到消息后第一时间启动执行，结束后发一个“task2 done”的消息</li>
-<li>task3同理</li>
+<li><p>task1准时开始，结束后发一个“task1 done”的消息</p>
+</li>
+<li><p>task2订阅“task1 done”的消息，收到消息后第一时间启动执行，结束后发一个“task2 done”的消息</p>
+</li>
+<li><p>task3同理</p>
+</li>
 </ul>
 <p><strong>ps:</strong><font color="gray">此处发送的消息可以理解为，确认任务完成的一个标识消息，而不是任务执行完成后的输出数据</font></p>
 <p>综上所述，在数据驱动的任务依赖的场景下，采用MQ具备了以下优点：</p>
@@ -444,7 +447,38 @@
 <li><p>有任务执行时间变化，下游任务都不需要调整执行时间</p>
 </li>
 </ul>
-<h4 id="上游不关心执行结果"><a href="#上游不关心执行结果" class="headerlink" title="上游不关心执行结果"></a>上游不关心执行结果</h4><h4 id="上游关心执行结果，但执行时间很长"><a href="#上游关心执行结果，但执行时间很长" class="headerlink" title="上游关心执行结果，但执行时间很长"></a>上游关心执行结果，但执行时间很长</h4>
+<h4 id="上游不关心执行结果"><a href="#上游不关心执行结果" class="headerlink" title="上游不关心执行结果"></a>上游不关心执行结果</h4><p>在上面已经说过，如果上游需要关注执行结果，则需要使用<strong>调用</strong>，如果上游不需要关注执行结果，则可以使用MQ。</p>
+<p>此处，我们再次回顾下开篇所说的注册模块，注册成功后，短信模块需要发送一条短信通知，邮件模块需要发送一条邮件通知，金币模块需要发送一条赠送金币通知。这里，我们不关心执行结果，只要执行了就是OK的。</p>
+<p>如果采用<strong>直接调用</strong>：</p>
+<p><img src="http://upyun.qubianzhong.cn/picture/WXWork_cUdmrM7jlh.png" alt></p>
+<ul>
+<li><p>最明显的就是，<font color="red">执行时间增加</font></p>
+</li>
+<li><p>其次，下游某一个服务宕机，可能导致注册服务的异常，<font color="red">上下游逻辑+物理依赖严重</font></p>
+</li>
+<li><p>最后，如果再新增一个下游，上游必须得修改代码，属于<font color="red">架构设计中典型的依赖倒转</font></p>
+</li>
+</ul>
+<p>优化后，采用MQ解耦，在注册成功后，向MQ发送一个消息；哪个下游关注<code>注册成功</code>这个事件，就主动去MQ订阅</p>
+<p><img src="http://upyun.qubianzhong.cn/picture/WXWork_74DnO8XLNQ.png" alt></p>
+<p>采用MQ后，上游执行时间只关注本身业务；除了与MQ有物理连接，上下游模块都不相互依赖；新增一个下游消息关注方，上游不需要修改任何代码。</p>
+<h4 id="上游关心执行结果，但执行时间很长"><a href="#上游关心执行结果，但执行时间很长" class="headerlink" title="上游关心执行结果，但执行时间很长"></a>上游关心执行结果，但执行时间很长</h4><p>有时候上游需要关注执行结果，但执行时间很长。典型的是<font color="red">调用离线处理，或者跨公网调用</font>，经常使用<strong>回调网关+MQ来解耦</strong>。</p>
+<p>比如，微信支付，跨公网调用微信的接口。<br><img src="http://upyun.qubianzhong.cn/picture/WXWork_bQKIV2VqYu.png" alt></p>
+<p>执行的流程：</p>
+<ul>
+<li><p>调用方直接跨公网调用微信接口</p>
+</li>
+<li><p>微信返回调用成功，此时并不代表返回成功</p>
+</li>
+<li><p>微信执行完成后，回调统一网关</p>
+</li>
+<li><p>网关将返回结果通知MQ</p>
+</li>
+<li><p>请求方收到结果通知</p>
+</li>
+</ul>
+<p><font color="gray">这里可能会有个疑问，为什么不由回调网关来调用上游来通知结果呢？</font><br>因为，如果这样的话，每次新增调用方，回调网关都需要修改代码，仍然会反向依赖，使用回调网关+MQ的方案，新增任何对微信支付的调用，都不需要修改代码啦。</p>
+
         </div>
         
           
@@ -455,7 +489,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-07-10T16:58:50+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-07-10T18:12:28+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
     <p>最后更新于 2019年7月10日</p>
